@@ -2,6 +2,7 @@
 
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using TodoAPI.Dtos;
 using TodoAPI.Models;
 using TodoAPI.Services;
 
@@ -26,7 +27,7 @@ namespace TodoAPI.Controllers
         public async Task<ActionResult<ServiceResponse<Todo>>> GetTodo(int id) { return Ok(await _TodoService.GetTodoById(id)); }
 
         [HttpPost("add")]
-        public async Task<ActionResult<ServiceResponse<IEnumerable<Todo>>>> AddTodo(Todo todo)
+        public async Task<ActionResult<ServiceResponse<IEnumerable<Todo>>>> AddTodo(AddTodoRequestDto todo)
         {
             return Ok(await _TodoService.AddTodos(todo));
         }

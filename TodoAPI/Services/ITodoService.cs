@@ -1,4 +1,5 @@
-﻿using TodoAPI.Models;
+﻿using TodoAPI.Dtos;
+using TodoAPI.Models;
 
 namespace TodoAPI.Services
 {
@@ -6,6 +7,6 @@ namespace TodoAPI.Services
     {
         Task<ServiceResponse<IEnumerable<Todo>>> GetTodos();
         Task<ServiceResponse<Todo>> GetTodoById(int id);
-        Task<ServiceResponse<IEnumerable<Todo>>> AddTodos(Todo todo);
+        Task<ServiceResponse<IEnumerable<Todo>>> AddTodos(AddTodoRequestDto todo);
     }
 }

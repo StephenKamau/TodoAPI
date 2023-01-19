@@ -1,27 +1,22 @@
 ﻿using System.Text.Json;
 
-namespace TodoAPI.Models
+namespace TodoAPI.Dtos
 {
-    public class Todo
+    public class AddTodoRequestDto
     {
-        public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime UpdatedDate { get; set; } = DateTime.Now;
+        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
+        public DateTime UpdatedDate { get; set; } = DateTime.UtcNow;
         public string Status { get; set; }
 
-        public Todo(int id, string title, string description, DateTime createdDate, DateTime updatedDate, string status)
-        {
-            Id = id;
+        public AddTodoRequestDto( string title, string description, DateTime updatedDate, string status)
+        {           
             Title = title;
             Description = description;
-            CreatedDate = createdDate;
             UpdatedDate = updatedDate;
             Status = status;
         }
-
-        public Todo() { }
 
         public override string ToString()
         {

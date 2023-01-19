@@ -1,17 +1,28 @@
-﻿using TodoAPI.Models;
+﻿using AutoMapper;
+using TodoAPI.Dtos;
+using TodoAPI.Models;
 
 namespace TodoAPI.Services
 {
     public class TodoService : ITodoService
 
     {
+        public TodoService(IMapper mapper)
+        {
+            _Mapper = mapper;
+        }
         public List<Todo> todos = new();
-        public async Task<ServiceResponse<IEnumerable<Todo>>> AddTodos(Todo todo)
+
+        public IMapper _Mapper { get; }
+
+        public async Task<ServiceResponse<IEnumerable<Todo>>> AddTodos(AddTodoRequestDto todo)
         {
             var serviceResponse = new ServiceResponse<IEnumerable<Todo>>();
-            todos.Add(todo);
-            serviceResponse.Data=todos;
-            return  serviceResponse;
+            var t = _Mapper.Map<Todo>(todo);
+            t.Id = todos.Count > 0 ? todos.Max(x => x.Id) + 1 : 1;
+            todos.Add(t);
+            serviceResponse.Data = todos;
+            return serviceResponse;
         }
 
         public async Task<ServiceResponse<Todo>> GetTodoById(int id)
@@ -29,7 +40,7 @@ namespace TodoAPI.Services
         public async Task<ServiceResponse<IEnumerable<Todo>>> GetTodos()
         {
             var serviceResponse = new ServiceResponse<IEnumerable<Todo>>();
-            serviceResponse.Data=todos;
+            serviceResponse.Data = todos;
             return serviceResponse;
         }
     }
