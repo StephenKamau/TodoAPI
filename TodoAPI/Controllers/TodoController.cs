@@ -29,7 +29,15 @@ namespace TodoAPI.Controllers
         [HttpPost("add")]
         public async Task<ActionResult<ServiceResponse<IEnumerable<Todo>>>> AddTodo(AddTodoRequestDto todo)
         {
-            return Ok(await _TodoService.AddTodos(todo));
+            return Ok(await _TodoService.AddTodo(todo));
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<ServiceResponse<Todo>>> UpdateCharacter(UpdateTodoRequestDto updateTodo)
+        {
+            var response = await _TodoService.UpdateTodo(updateTodo);
+            if (response.Data is null) { return NotFound(response); }
+            return Ok(response);
         }
     }
 }

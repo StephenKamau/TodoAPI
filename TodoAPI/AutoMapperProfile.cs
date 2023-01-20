@@ -9,6 +9,7 @@ namespace TodoAPI
         public AutoMapperProfile()
         {
             CreateMap<AddTodoRequestDto, Todo>();
+            CreateMap<UpdateTodoRequestDto, Todo>();
         }
     }
 }
