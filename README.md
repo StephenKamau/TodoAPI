@@ -6,7 +6,9 @@ This is a simple dotnet web api for managing Todos.
 
 ` Todo schema `
 
-``` public class Todo
+
+``` C#
+    public class Todo
     {
         public int Id { get; set; }
         public string Title { get; set; }
