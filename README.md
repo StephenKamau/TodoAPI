@@ -8,7 +8,11 @@ This is a simple dotnet web api for managing Todos.
 
 
 ``` C#
+<<<<<<< HEAD
     public class Todo
+=======
+public class Todo
+>>>>>>> e1d0d30d634c14711da9f2a86050d80ebf337379
     {
         public int Id { get; set; }
         public string Title { get; set; }
