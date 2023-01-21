@@ -15,7 +15,6 @@ namespace TodoAPI.Services
             _mapper = mapper;
             Context = context;
         }
-        public List<Todo> todos = new List<Todo>();
 
         public IMapper _mapper { get; }
         public DataContext Context { get; }
@@ -35,12 +34,21 @@ namespace TodoAPI.Services
         public async Task<ServiceResponse<Todo>> GetTodoById(int id)
         {
             var serviceResponse = new ServiceResponse<Todo>();
-            var dbTodo = await Context.Todos.FirstOrDefaultAsync(x => x.Id == id);
-            if (dbTodo is null)
+            try
             {
-                throw new ArgumentException($"Could not find todo with id {id}");
+                var dbTodo = await Context.Todos.FirstOrDefaultAsync(x => x.Id == id);
+                if (dbTodo is null)
+                {
+                    throw new ArgumentException($"Could not find todo with id {id}");
+                }
+                serviceResponse.Data = dbTodo;
             }
-            serviceResponse.Data = dbTodo;
+            catch (Exception ex)
+            {
+                serviceResponse.Data = null;
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
             return serviceResponse;
         }
 

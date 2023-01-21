@@ -24,7 +24,12 @@ namespace TodoAPI.Controllers
         public async Task<ActionResult<ServiceResponse<IEnumerable<Todo>>>> GetTodo() { return Ok(await _TodoService.GetTodos()); }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<Todo>>> GetTodo(int id) { return Ok(await _TodoService.GetTodoById(id)); }
+        public async Task<ActionResult<ServiceResponse<Todo>>> GetTodo(int id)
+        {
+            var response = await _TodoService.GetTodoById(id);
+            if (response.Data == null) { return NotFound(response); }
+            return Ok(response);
+        }
 
         [HttpPost("add")]
         public async Task<ActionResult<ServiceResponse<IEnumerable<Todo>>>> AddTodo(AddTodoRequestDto todo)
